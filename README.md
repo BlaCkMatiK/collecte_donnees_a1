@@ -23,8 +23,8 @@ Le script principal `import.py` effectue les opérations suivantes :
 
 1. Clonez ce dépôt :
    ```
-   git clone https://github.com/BlaCkMatiK/collecte_donnees_a1.git
-   cd collecte_donnees_a1
+   git clone https://github.com/BlaCkMatiK/collecte_donnees.git
+   cd collecte_donnees
    ```
 
 2. Création de l'environnement virtuel :
