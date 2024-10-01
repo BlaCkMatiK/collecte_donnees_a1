@@ -6,13 +6,10 @@ import sys
 # Nom du fichier de la base de données DuckDB
 db_file = 'mon_datalake.db'
 
-conn = duckdb.connect(db_file)
-conn.sql(f"""SELECT * FROM travaux LIMIT 5""").show()
-
 for file in os.listdir('sources') :
 
     # Nom du fichier CSV à ingérer
-    csv_file = 'sources/'+file
+    csv_file = f'sources/{file}'
 
     # Nom de la table où les données seront stockées
     table_name = pathlib.Path(file).stem
@@ -31,11 +28,14 @@ for file in os.listdir('sources') :
         result = conn.execute(f"SELECT COUNT(*) FROM {table_name}").fetchone()
         print(f"Nombre de lignes insérées dans {table_name}: {result[0]}")
 
+        conn.sql(f"""SELECT * FROM {table_name} LIMIT 5""").show()
+
         # Exemple de requête pour afficher les premières lignes
-        print("\nAperçu des données:")
-        result = conn.execute(f"SELECT * FROM {table_name} LIMIT 5").fetchall()
-        for row in result:
-            print(row)
+        # print("\nAperçu des données:")
+        # result = conn.execute(f"SELECT * FROM {table_name} LIMIT 5").fetchall()
+        # for row in result:
+        #     print(row)
+
 
     except Exception as e:
         print(f"Une erreur s'est produite : {e}")
