@@ -1,18 +1,21 @@
 import duckdb
 import os
+import pathlib
+import sys
 
+# Nom du fichier de la base de données DuckDB
+db_file = 'mon_datalake.db'
 
-for file in os.listdir('data') :
+conn = duckdb.connect(db_file)
+conn.sql(f"""SELECT * FROM travaux LIMIT 5""").show()
 
-
-    # Nom du fichier de la base de données DuckDB
-    db_file = 'mon_datalake.db'
+for file in os.listdir('sources') :
 
     # Nom du fichier CSV à ingérer
-    csv_file = 'sources/ci_acte_a.csv'
+    csv_file = 'sources/'+file
 
     # Nom de la table où les données seront stockées
-    table_name = 'ma_table'
+    table_name = pathlib.Path(file).stem
 
     # Connexion à la base de données
     conn = duckdb.connect(db_file)
